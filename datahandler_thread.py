@@ -54,13 +54,16 @@ class DataHandlerThread(threading.Thread):
             [5] 包数量
             [6] 总共字节数
         """
+        if (self.data == None):
+            return
+
         self.date = self.data_name[0]
         self.tuple_data = []
         iter_range = range(1, len(self.data))
         for i in iter_range:
             line = self.data[i].split('\t')
             tmp_date = line.replace('-', '')
-            if tmp_date == self.date:
+            if tmp_date == self.date:          #删除非当日的数据
                 self.tuple_data.append((line[1], \
                                         line[2], \
                                         line[3], \

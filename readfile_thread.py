@@ -33,7 +33,7 @@ class ReadFileThread(threading.Thread):
         
         log.info('ReadFile thread: start')
         #判断path是否存在，以及判断它是目录还是文件
-        if not os.path.exist(self.file_path):
+        if not os.path.exists(self.file_path):
             log.error('File not found')
             raise FileNotFoundError()
         if os.path.isfile(self.file_path):
@@ -52,7 +52,7 @@ class ReadFileThread(threading.Thread):
         with open(file_path) as file:
             lines = file.readlines()    #直接一次把文件里的内容读到内存中来
             self.data_ready_cb(lines, file_path.split('/')[-1])   #通知回调函数，该数据已经读取到了
-            log.info('Read %d lines in file %s ' % (len(lines), file_name))
+            log.info('Read %d lines in file %s ' % (len(lines), file_path))
 
     def read_dir(self, dir_path):
         """传入文件夹时的处理函数
@@ -62,11 +62,11 @@ class ReadFileThread(threading.Thread):
         for file_name in file_names:
             if file_name.endswith('.nfdat'): #过滤出.nfdat的文件
                 file_path = ''
-                if dir_path.endswith('/')
+                if dir_path.endswith('/'):
                     file_path = dir_path + file_name
                 else:
                     file_path = dir_path + '/' + file_name
-                read_file(file_path)
+                self.read_file(file_path)
             else:
                 pass
         log.info('Read files in dir: end')

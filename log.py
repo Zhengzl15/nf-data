@@ -22,14 +22,14 @@ def initialize_logging(to_file=True):
     """
 
     global logger
-    logger = logging.getLogger('rtk')
+    logger = logging.getLogger('nfdata')
     logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     # to file
     if to_file:
-        fh = logging.handlers.RotatingFileHandler('logs/rtk.log', maxBytes=524288000, backupCount=10)
+        fh = logging.handlers.RotatingFileHandler('logs/nfdata.log', maxBytes=524288000, backupCount=10)
         fh.setLevel(logging.DEBUG)
         fh.doRollover()
         fh.setFormatter(formatter)
